@@ -5,37 +5,36 @@ import axios from 'axios';
 // import logo from './logo.svg';
 import './App.css';
 
-// var doc = parser.parseFromString(stringContainingXMLSource, 'application/xml');
-
 const corsUrl = 'https://cors-anywhere.herokuapp.com/';
 
 const imgUrl =
   'http://thecatapi.com/api/images/get?format=json&results_per_page=25';
 
-// const factsUrl = 'https://catfact.ninja/facts?limit=25';
+const factsUrl = 'https://catfact.ninja/facts?limit=25';
 
 class App extends Component {
   state = {
-    cats: []
+    catImages: [],
+    catFacts: []
   };
 
   async componentDidMount() {
     try {
-      const { data } = await axios({
-        method: 'get',
-        url: corsUrl + imgUrl
-      });
-      this.setState({ cats: data });
+      const images = await axios.get(corsUrl + imgUrl);
+      this.setState({ catImages: images.data });
+      const facts = await axios.get(corsUrl + factsUrl);
+      this.setState({ catFacts: facts.data.data });
     } catch (error) {
       console.log(error);
     }
   }
 
   render() {
-    console.log('CATS!!', this.state.cats);
-    const cats = this.state.cats;
-
-    return (
+    const { catFacts, catImages } = this.state;
+    console.log('CATFACTS', catFacts);
+    return !catFacts[0] || !catImages[0] ? (
+      'Loading...'
+    ) : (
       <Fragment>
         <Header
           as="h1"
@@ -44,8 +43,8 @@ class App extends Component {
           textAlign="center"
         />
         <Grid container columns={3}>
-          {cats.map(cat => (
-            <CatCard key={cat.id} img={cat.url} />
+          {catImages.map((image, i) => (
+            <CatCard key={i} img={image.url} fact={catFacts[i].fact} />
           ))}
         </Grid>
       </Fragment>
