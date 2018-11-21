@@ -9,7 +9,8 @@ class CatCard extends Component {
   };
 
   render() {
-    const { id, imgUrl, fact, favorite } = this.props.cat;
+    const { selected, handleSingle, cat } = this.props;
+    const { id, imgUrl, fact, favorite } = cat;
     return (
       <Card>
         <Image src={imgUrl} />
@@ -20,7 +21,10 @@ class CatCard extends Component {
         <Card.Content extra>
           <a onClick={() => this.handleToggle(id)}>
             <Icon name="heart" color={favorite ? 'red' : null} />
-            &nbsp;Favorite
+          </a>
+          &nbsp;
+          <a onClick={() => handleSingle(id)}>
+            <Icon name="eye" color={selected === id ? 'blue' : null} />
           </a>
         </Card.Content>
       </Card>
@@ -29,9 +33,7 @@ class CatCard extends Component {
 }
 
 const mapDispatch = dispatch => ({
-  toggleFavorite: catId => {
-    dispatch(toggleFavorite(catId));
-  }
+  toggleFavorite: catId => dispatch(toggleFavorite(catId))
 });
 
 export default connect(

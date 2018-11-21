@@ -1,9 +1,8 @@
-import React, { Component, Fragment } from 'react';
 import { Header, Grid, Container } from 'semantic-ui-react';
-import CatCard from './../CatCard/CatCard';
 import SortButtons from './../SortButtons/SortButtons';
+import React, { Component, Fragment } from 'react';
+import CatCard from './../CatCard/CatCard';
 import { connect } from 'react-redux';
-import './App.css';
 import {
   getCats,
   selectAllCats,
@@ -11,41 +10,38 @@ import {
   selectAllFavorites
 } from '../../store';
 
+const defaultState = {
+  single: false,
+  areSorted: false,
+  areFavorites: false
+};
+
 class App extends Component {
-  state = {
-    areSorted: false,
-    areFavorites: false
-  };
+  state = defaultState;
 
-  componentDidMount = () => {
-    this.props.getCats();
-  };
+  componentDidMount = () => this.props.getCats();
 
-  handleAllCats = () => {
+  handleAllCats = () => this.setState(defaultState);
+
+  handleSort = () => this.setState({ ...defaultState, areSorted: true });
+
+  handleFavorites = () =>
     this.setState({
-      areSorted: false,
-      areFavorites: false
-    });
-  };
-
-  handleSort = () => {
-    this.setState({
-      areSorted: true,
-      areFavorites: false
-    });
-  };
-
-  handleFavorites = () => {
-    this.setState({
-      areSorted: false,
+      ...defaultState,
       areFavorites: true
     });
+
+  handleSingle = catId => {
+    return this.state.single === catId
+      ? this.setState(defaultState)
+      : this.setState({ ...defaultState, single: catId });
   };
 
   render() {
     let { cats, sorted, favorites } = this.props;
-    const { areSorted, areFavorites } = this.state;
+    const { areSorted, areFavorites, single } = this.state;
     if (areSorted) cats = sorted;
+    else if (single) cats = cats.filter(c => c.id === single);
     else if (areFavorites && favorites.length) cats = favorites;
     return !cats[0] ? (
       'Loading...'
@@ -57,7 +53,6 @@ class App extends Component {
           style={style.h1}
           textAlign="center"
         />
-
         <Container>
           <SortButtons
             handleSortClick={this.handleSort}
@@ -68,7 +63,11 @@ class App extends Component {
             {cats.map(cat => (
               <Fragment key={cat.id}>
                 <Grid.Column>
-                  <CatCard cat={cat} />
+                  <CatCard
+                    cat={cat}
+                    handleSingle={this.handleSingle}
+                    selected={single}
+                  />
                 </Grid.Column>
               </Fragment>
             ))}
