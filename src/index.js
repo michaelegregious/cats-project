@@ -13,10 +13,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// See react docs
 serviceWorker.unregister();
-
-// store
-//   .dispatch(makeSandwichesForEverybody())
-//   .then(() =>
-//     response.send(ReactDOMServer.renderToString(<MyApp store={store} />))
-//   );
