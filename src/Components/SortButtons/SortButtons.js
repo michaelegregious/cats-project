@@ -3,15 +3,23 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 const SortButtons = props => {
-  const { handleSortClick, handleFavoritesClick, favorites } = props;
+  const {
+    handleSortClick,
+    handleFavoritesClick,
+    handleAllCatsClick,
+    favorites
+  } = props;
   return (
     <Fragment>
       <Form>
         <Form.Group inline>
-          <Form.Button primary onClick={handleSortClick}>
+          <Form.Button color="green" onClick={handleAllCatsClick}>
+            All the Cats
+          </Form.Button>
+          <Form.Button color="blue" onClick={handleSortClick}>
             Sort
           </Form.Button>
-          <Form.Button onClick={() => handleFavoritesClick()}>
+          <Form.Button color="red" onClick={handleFavoritesClick}>
             Favorites &nbsp; {favorites}
           </Form.Button>
         </Form.Group>

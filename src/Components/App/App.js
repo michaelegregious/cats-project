@@ -21,14 +21,21 @@ class App extends Component {
     this.props.getCats();
   };
 
-  handleSortClick = () => {
+  handleAllCats = () => {
+    this.setState({
+      areSorted: false,
+      areFavorites: false
+    });
+  };
+
+  handleSort = () => {
     this.setState({
       areSorted: true,
       areFavorites: false
     });
   };
 
-  handleFavoritesClick = () => {
+  handleFavorites = () => {
     this.setState({
       areSorted: false,
       areFavorites: true
@@ -37,8 +44,9 @@ class App extends Component {
 
   render() {
     let { cats, sorted, favorites } = this.props;
-    if (this.state.areSorted) cats = sorted;
-    else if (this.state.areFavorites) cats = favorites;
+    const { areSorted, areFavorites } = this.state;
+    if (areSorted) cats = sorted;
+    else if (areFavorites && favorites.length) cats = favorites;
     return !cats[0] ? (
       'Loading...'
     ) : (
@@ -52,8 +60,9 @@ class App extends Component {
 
         <Container>
           <SortButtons
-            handleSortClick={this.handleSortClick}
-            handleFavoritesClick={this.handleFavoritesClick}
+            handleSortClick={this.handleSort}
+            handleFavoritesClick={this.handleFavorites}
+            handleAllCatsClick={this.handleAllCats}
           />
           <Grid columns={3}>
             {cats.map(cat => (
