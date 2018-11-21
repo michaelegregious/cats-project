@@ -1,12 +1,5 @@
 import axios from 'axios';
 
-// const corsUrl = 'https://cors-anywhere.herokuapp.com/';
-
-// const imgUrl =
-//   'http://thecatapi.com/api/images/get?format=json&results_per_page=25';
-
-// const factsUrl = 'https://catfact.ninja/facts?limit=25';
-
 const url = {
   cors: 'https://cors-anywhere.herokuapp.com/',
   facts: 'https://catfact.ninja/facts?limit=25',
@@ -15,6 +8,7 @@ const url = {
 
 // ACTION TYPES
 const GET_CATS = 'GET_CATS';
+const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 
 // INITIAL STATE
 const defaultCats = {
@@ -22,16 +16,23 @@ const defaultCats = {
     0: {
       id: 0,
       imgUrl: '',
-      fact: ''
+      fact: '',
+      favorite: false
     }
   },
-  allIds: []
+  allIds: [],
+  favorites: 0
 };
 
 // ACTION CREATORS
 export const gotCats = cats => ({
   type: GET_CATS,
   cats
+});
+
+export const toggleFavorite = catId => ({
+  type: TOGGLE_FAVORITE,
+  catId
 });
 
 // THUNK CREATORS
@@ -54,13 +55,6 @@ export const getCats = () => dispatch =>
 // API REQUESTS
 const getImages = async () => {
   return axios.get(url.cors + url.img).then(images => images.data);
-
-  // try {
-  //   const images = await axios.get(url.cors + url.img);
-  //   return images.data;
-  // } catch (error) {
-  //   console.log(error);
-  // }
 };
 
 const getFacts = async () => {
@@ -76,10 +70,22 @@ export default function(state = defaultCats, action) {
     case GET_CATS:
       return {
         byId: action.cats.reduce((result, cat) => {
+          cat.favorite = false;
           result[cat.id] = cat;
           return result;
         }, {}),
-        allIds: action.cats.map(cat => cat.id)
+        allIds: action.cats.map(cat => cat.id),
+        favorites: 0
+      };
+    case TOGGLE_FAVORITE:
+      let cat = state.byId[action.catId];
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.catId]: { ...cat, favorite: !cat.favorite }
+        },
+        favorites: cat.favorite ? state.favorites - 1 : state.favorites + 1
       };
     default:
       return state;
@@ -94,8 +100,14 @@ export const selectAllCats = state => {
   }, []);
 };
 
+export const selectAllFavorites = state => {
+  return state.cats.allIds.reduce((result, id) => {
+    let cat = state.cats.byId[id];
+    if (cat.favorite) result.push(cat);
+    return result;
+  }, []);
+};
+
 export const sortCatsByLastWord = state => {
-  return Object.values(state.cats.byId).sort(
-    (a, b) => b.fact.split(' ')[0] - a.fact.split(' ')[0]
-  );
+  return Object.values(state.cats.byId).sort((a, b) => b.fact - a.fact);
 };

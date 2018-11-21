@@ -4,12 +4,17 @@ import CatCard from './../CatCard/CatCard';
 import SortButtons from './../SortButtons/SortButtons';
 import { connect } from 'react-redux';
 import './App.css';
-import { getCats, selectAllCats, sortCatsByLastWord } from '../../store';
+import {
+  getCats,
+  selectAllCats,
+  sortCatsByLastWord,
+  selectAllFavorites
+} from '../../store';
 
 class App extends Component {
   state = {
     areSorted: false,
-    favorites: false
+    areFavorites: false
   };
 
   componentDidMount = () => {
@@ -18,14 +23,22 @@ class App extends Component {
 
   handleSortClick = () => {
     this.setState({
-      areSorted: () => !this.state.areSorted
+      areSorted: true,
+      areFavorites: false
     });
   };
 
-  render = () => {
-    let cats;
-    if (this.state.areSorted) cats = this.props.sorted;
-    else cats = this.props.cats;
+  handleFavoritesClick = () => {
+    this.setState({
+      areSorted: false,
+      areFavorites: true
+    });
+  };
+
+  render() {
+    let { cats, sorted, favorites } = this.props;
+    if (this.state.areSorted) cats = sorted;
+    else if (this.state.areFavorites) cats = favorites;
     return !cats[0] ? (
       'Loading...'
     ) : (
@@ -38,12 +51,15 @@ class App extends Component {
         />
 
         <Container>
-          <SortButtons handleSortClick={this.handleSortClick} />
+          <SortButtons
+            handleSortClick={this.handleSortClick}
+            handleFavoritesClick={this.handleFavoritesClick}
+          />
           <Grid columns={3}>
             {cats.map(cat => (
               <Fragment key={cat.id}>
                 <Grid.Column>
-                  <CatCard img={cat.imgUrl} fact={cat.fact} />
+                  <CatCard cat={cat} />
                 </Grid.Column>
               </Fragment>
             ))}
@@ -51,12 +67,13 @@ class App extends Component {
         </Container>
       </div>
     );
-  };
+  }
 }
 
 const mapState = state => ({
   cats: selectAllCats(state),
-  sorted: sortCatsByLastWord(state)
+  sorted: sortCatsByLastWord(state),
+  favorites: selectAllFavorites(state)
 });
 
 const mapDispatch = dispatch => ({

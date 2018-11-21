@@ -1,8 +1,9 @@
-import React, { Fragment } from 'react';
 import { Form, Divider } from 'semantic-ui-react';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
 const SortButtons = props => {
-  const { handleSortClick } = props;
+  const { handleSortClick, handleFavoritesClick, favorites } = props;
   return (
     <Fragment>
       <Form>
@@ -10,8 +11,8 @@ const SortButtons = props => {
           <Form.Button primary onClick={handleSortClick}>
             Sort
           </Form.Button>
-          <Form.Button onClick={() => console.log('Favorites!')}>
-            Favorites
+          <Form.Button onClick={() => handleFavoritesClick()}>
+            Favorites &nbsp; {favorites}
           </Form.Button>
         </Form.Group>
       </Form>
@@ -20,4 +21,8 @@ const SortButtons = props => {
   );
 };
 
-export default SortButtons;
+const mapState = state => ({
+  favorites: state.cats.favorites
+});
+
+export default connect(mapState)(SortButtons);
