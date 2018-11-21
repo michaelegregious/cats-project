@@ -2,37 +2,36 @@ import React, { Component, Fragment } from 'react';
 import { Header, Grid, Container, Divider, Form } from 'semantic-ui-react';
 import CatCard from './../CatCard/CatCard';
 import SearchBar from './../SearchBar/SearchBar';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import './App.css';
-
-const corsUrl = 'https://cors-anywhere.herokuapp.com/';
-
-const imgUrl =
-  'http://thecatapi.com/api/images/get?format=json&results_per_page=25';
-
-const factsUrl = 'https://catfact.ninja/facts?limit=25';
+import { getCats, selectAllCats } from '../../store';
 
 class App extends Component {
-  state = {
-    catImages: [],
-    catFacts: []
-  };
+  // state = {
+  //   catImages: [],
+  //   cats: []
+  // };
 
-  async componentDidMount() {
-    try {
-      const images = await axios.get(corsUrl + imgUrl);
-      this.setState({ catImages: images.data });
-      const facts = await axios.get(corsUrl + factsUrl);
-      this.setState({ catFacts: facts.data.data });
-    } catch (error) {
-      console.log(error);
-    }
+  // async componentDidMount() {
+  //   try {
+  //     const images = await axios.get(url.cors + url.img);
+  //     this.setState({ catImages: images.data });
+  //     const facts = await axios.get(url.cors + url.facts);
+  //     this.setState({ catFacts: facts.data.data });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  componentDidMount() {
+    console.log('in ComponentDidMount');
+    this.props.getCats();
   }
 
   render() {
-    const { catFacts, catImages } = this.state;
-    console.log('CATFACTS', catFacts);
-    return !catFacts[0] || !catImages[0] ? (
+    const { cats } = this.props;
+    console.log('CATS in render()', cats);
+    return !cats[0] ? (
       'Loading...'
     ) : (
       <div>
@@ -54,10 +53,10 @@ class App extends Component {
           </Form>
           <Divider hidden />
           <Grid columns={3}>
-            {catImages.map((image, i) => (
+            {cats.map(cat => (
               <Fragment>
                 <Grid.Column>
-                  <CatCard key={i} img={image.url} fact={catFacts[i].fact} />
+                  <CatCard key={cat.id} img={cat.imgUrl} fact={cat.fact} />
                 </Grid.Column>
               </Fragment>
             ))}
@@ -68,10 +67,23 @@ class App extends Component {
   }
 }
 
+const mapState = state => ({
+  cats: selectAllCats(state)
+});
+
+const mapDispatch = dispatch => ({
+  getCats: () => {
+    dispatch(getCats());
+  }
+});
+
 const style = {
   h1: {
     padding: '1.5em 0em'
   }
 };
 
-export default App;
+export default connect(
+  mapState,
+  mapDispatch
+)(App);
