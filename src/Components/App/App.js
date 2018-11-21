@@ -2,18 +2,30 @@ import React, { Component, Fragment } from 'react';
 import { Header, Grid, Container } from 'semantic-ui-react';
 import CatCard from './../CatCard/CatCard';
 import SortButtons from './../SortButtons/SortButtons';
-
 import { connect } from 'react-redux';
 import './App.css';
-import { getCats, selectAllCats } from '../../store';
+import { getCats, selectAllCats, sortCatsByLastWord } from '../../store';
 
 class App extends Component {
-  componentDidMount() {
-    this.props.getCats();
-  }
+  state = {
+    areSorted: false,
+    favorites: false
+  };
 
-  render() {
-    const { cats } = this.props;
+  componentDidMount = () => {
+    this.props.getCats();
+  };
+
+  handleSortClick = () => {
+    this.setState({
+      areSorted: () => !this.state.areSorted
+    });
+  };
+
+  render = () => {
+    let cats;
+    if (this.state.areSorted) cats = this.props.sorted;
+    else cats = this.props.cats;
     return !cats[0] ? (
       'Loading...'
     ) : (
@@ -26,7 +38,7 @@ class App extends Component {
         />
 
         <Container>
-          <SortButtons />
+          <SortButtons handleSortClick={this.handleSortClick} />
           <Grid columns={3}>
             {cats.map(cat => (
               <Fragment key={cat.id}>
@@ -39,11 +51,12 @@ class App extends Component {
         </Container>
       </div>
     );
-  }
+  };
 }
 
 const mapState = state => ({
-  cats: selectAllCats(state)
+  cats: selectAllCats(state),
+  sorted: sortCatsByLastWord(state)
 });
 
 const mapDispatch = dispatch => ({

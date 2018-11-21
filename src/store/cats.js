@@ -93,3 +93,9 @@ export const selectAllCats = state => {
     return result;
   }, []);
 };
+
+export const sortCatsByLastWord = state => {
+  return Object.values(state.cats.byId).sort(
+    (a, b) => b.fact.split(' ')[0] - a.fact.split(' ')[0]
+  );
+};
