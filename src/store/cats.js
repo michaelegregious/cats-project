@@ -47,25 +47,21 @@ export const getCats = () => dispatch =>
         fact: facts[i].fact
       }));
     })
-    .then(array => {
-      dispatch(gotCats(array));
-    })
-    .catch(error => console.error(error));
+    .then(array => dispatch(gotCats(array)))
+    .catch(err => console.error(err));
 
 // API REQUESTS
-const getImages = () => {
-  return axios
+const getImages = () =>
+  axios
     .get(url.cors + url.img)
     .then(images => images.data)
     .catch(err => console.error(err));
-};
 
-const getFacts = () => {
-  return axios
+const getFacts = () =>
+  axios
     .get(url.cors + url.facts)
     .then(facts => facts.data.data)
     .catch(err => console.error(err));
-};
 
 // REDUCER
 export default function(state = defaultCats, action) {
@@ -96,23 +92,20 @@ export default function(state = defaultCats, action) {
 }
 
 // SELECTORS
-export const selectAllCats = state => {
-  return state.cats.allIds.reduce((result, id) => {
+export const selectAllCats = state =>
+  state.cats.allIds.reduce((result, id) => {
     result.push(state.cats.byId[id]);
     return result;
   }, []);
-};
 
-export const selectAllFavorites = state => {
-  return state.cats.allIds.reduce((result, id) => {
+export const selectAllFavorites = state =>
+  state.cats.allIds.reduce((result, id) => {
     let cat = state.cats.byId[id];
     if (cat.favorite) result.push(cat);
     return result;
   }, []);
-};
 
 // const lastWord = /\w+(?=\W*$)/; // No, it's not perfect in all situations.
 
-export const sortCatsByLastWord = state => {
-  return Object.values(state.cats.byId).sort((a, b) => b.fact - a.fact);
-};
+export const sortCatsByLastWord = state =>
+  Object.values(state.cats.byId).sort((a, b) => b.fact - a.fact);
