@@ -53,15 +53,18 @@ export const getCats = () => dispatch =>
     .catch(error => console.error(error));
 
 // API REQUESTS
-const getImages = async () => {
-  return axios.get(url.cors + url.img).then(images => images.data);
+const getImages = () => {
+  return axios
+    .get(url.cors + url.img)
+    .then(images => images.data)
+    .catch(err => console.error(err));
 };
 
-const getFacts = async () => {
-  try {
-    const facts = await axios.get(url.cors + url.facts);
-    return facts.data.data;
-  } catch (error) {}
+const getFacts = () => {
+  return axios
+    .get(url.cors + url.facts)
+    .then(facts => facts.data.data)
+    .catch(err => console.error(err));
 };
 
 // REDUCER
@@ -107,6 +110,8 @@ export const selectAllFavorites = state => {
     return result;
   }, []);
 };
+
+// const lastWord = /\w+(?=\W*$)/; // No, it's not perfect in all situations.
 
 export const sortCatsByLastWord = state => {
   return Object.values(state.cats.byId).sort((a, b) => b.fact - a.fact);

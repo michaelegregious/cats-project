@@ -1,6 +1,7 @@
 import { Form, Divider } from 'semantic-ui-react';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 const SortButtons = props => {
   const {
@@ -32,5 +33,11 @@ const SortButtons = props => {
 const mapState = state => ({
   favorites: state.cats.favorites
 });
+
+SortButtons.propTypes = {
+  handleSortClick: propTypes.func,
+  handleFavoritesClick: propTypes.func,
+  handleAllCatsClick: propTypes.func
+};
 
 export default connect(mapState)(SortButtons);

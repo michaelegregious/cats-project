@@ -6,8 +6,8 @@ import thunkMiddleware from 'redux-thunk';
 import cats from './cats';
 
 const reducer = combineReducers({
-  cats,
-  form: formReducer
+  form: formReducer,
+  cats
 });
 
 const middleware = composeWithDevTools(

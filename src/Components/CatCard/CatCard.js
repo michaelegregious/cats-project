@@ -2,11 +2,10 @@ import { Card, Image, Icon } from 'semantic-ui-react';
 import { toggleFavorite } from '../../store';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 class CatCard extends Component {
-  handleToggle = id => {
-    this.props.toggleFavorite(id);
-  };
+  handleToggle = id => this.props.toggleFavorite(id);
 
   render() {
     const { selected, handleSingle, cat } = this.props;
@@ -35,6 +34,19 @@ class CatCard extends Component {
 const mapDispatch = dispatch => ({
   toggleFavorite: catId => dispatch(toggleFavorite(catId))
 });
+
+const catPropType = propTypes.shape({
+  id: propTypes.string,
+  imgUrl: propTypes.string,
+  fact: propTypes.string,
+  favorite: propTypes.bool
+});
+
+CatCard.propTypes = {
+  selected: propTypes.bool,
+  handleSingle: propTypes.func,
+  cat: catPropType
+};
 
 export default connect(
   null,

@@ -3,6 +3,7 @@ import SortButtons from './../SortButtons/SortButtons';
 import React, { Component, Fragment } from 'react';
 import CatCard from './../CatCard/CatCard';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   getCats,
   selectAllCats,
@@ -31,11 +32,10 @@ class App extends Component {
       areFavorites: true
     });
 
-  handleSingle = catId => {
-    return this.state.single === catId
+  handleSingle = catId =>
+    this.state.single === catId
       ? this.setState(defaultState)
       : this.setState({ ...defaultState, single: catId });
-  };
 
   render() {
     let { cats, sorted, favorites } = this.props;
@@ -94,6 +94,12 @@ const style = {
   h1: {
     padding: '1.5em 0em'
   }
+};
+
+App.propTypes = {
+  cats: PropTypes.array,
+  sorted: PropTypes.array,
+  favorites: PropTypes.array
 };
 
 export default connect(
