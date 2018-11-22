@@ -1,28 +1,11 @@
-import React from 'react';
-import { mount } from 'enzyme';
 import SortButtons from './SortButtons';
+import { shallow } from 'enzyme';
+import store from '../../store';
+import React from 'react';
+import '../../setupTests';
 
-describe('SortButtons', () => {
-  let props;
-  let mountedSortButtons;
-  const sortButtons = () => {
-    if (!mountedSortButtons) {
-      mountedSortButtons = mount(<SortButtons {...props} />);
-    }
-    return mountedSortButtons;
-  };
-
-  beforeEach(() => {
-    props = {
-      handleSortClick: undefined,
-      handleFavoritesClick: undefined,
-      handleAllCatsClick: undefined
-    };
-    mountedSortButtons = undefined;
-  });
-
-  it('always renders a div', () => {
-    const divs = SortButtons().find('div');
-    expect(divs.length).toBeGreaterThan(0);
+describe('<SortButtons /> component', () => {
+  it('renders without crashing', () => {
+    shallow(<SortButtons />, { context: { store } });
   });
 });
