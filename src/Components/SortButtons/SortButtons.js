@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
+// Named export for testing
 export const SortButtons = ({
   handleFavoritesClick,
   handleAllCatsClick,
@@ -18,7 +19,7 @@ export const SortButtons = ({
         Sort
       </Button>
       <Button color="red" onClick={handleFavoritesClick}>
-        Favorites &nbsp; {favorites}
+        Favorites {favorites}
       </Button>
     </Button.Group>
     <Divider hidden />
