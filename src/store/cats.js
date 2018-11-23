@@ -12,6 +12,7 @@ const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 
 // INITIAL STATE
 const defaultCats = {
+  isFetching: true,
   byId: {
     0: {
       id: 0,
@@ -68,6 +69,7 @@ export default function(state = defaultCats, action) {
   switch (action.type) {
     case GET_CATS:
       return {
+        isFetching: false,
         byId: action.cats.reduce((result, cat) => {
           cat.favorite = false;
           result[cat.id] = cat;
@@ -98,12 +100,14 @@ export const selectAllCats = state =>
     return result;
   }, []);
 
-export const selectAllFavorites = state =>
-  state.cats.allIds.reduce((result, id) => {
+export const selectAllFavorites = state => {
+  console.log('SELECT ALL', state.cats.favorites);
+  return state.cats.allIds.reduce((result, id) => {
     let cat = state.cats.byId[id];
     if (cat.favorite) result.push(cat);
     return result;
   }, []);
+};
 
 // const lastWord = /\w+(?=\W*$)/; // No, it's not perfect in all situations.
 
