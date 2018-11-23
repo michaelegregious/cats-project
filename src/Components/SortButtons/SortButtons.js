@@ -19,7 +19,7 @@ export const SortButtons = ({
         Sort
       </Button>
       <Button color="red" onClick={handleFavoritesClick}>
-        Favorites {favorites}
+        Favorites &nbsp; {favorites}
       </Button>
     </Button.Group>
     <Divider hidden />

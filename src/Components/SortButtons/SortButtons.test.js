@@ -52,7 +52,7 @@ describe('<SortButtons /> component', () => {
       .children()
       .text();
 
-    expect(favButton).toEqual('Favorites 5');
+    expect(favButton).toEqual('Favorites \u00a0 5');
     console.log(
       'INNER text',
       wrapper
