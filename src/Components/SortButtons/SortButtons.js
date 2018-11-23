@@ -14,7 +14,10 @@ export const SortButtons = ({ favorites, history }) => (
       <Button color="blue" onClick={() => history.push('/sorted')}>
         Sort
       </Button>
-      <Button color="red" onClick={() => history.push('/favorites')}>
+      <Button
+        color="red"
+        onClick={favorites && (() => history.push('/favorites'))}
+      >
         Favorites &nbsp; {favorites}
       </Button>
     </Button.Group>
@@ -27,9 +30,7 @@ const mapState = state => ({
 });
 
 SortButtons.propTypes = {
-  handleSortClick: propTypes.func,
-  handleFavoritesClick: propTypes.func,
-  handleAllCatsClick: propTypes.func,
+  history: propTypes.object,
   favorites: propTypes.number
 };
 

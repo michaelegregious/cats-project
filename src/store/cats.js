@@ -101,13 +101,15 @@ export const selectAllCats = state =>
   }, []);
 
 export const selectAllFavorites = state => {
-  console.log('SELECT ALL', state.cats.favorites);
   return state.cats.allIds.reduce((result, id) => {
     let cat = state.cats.byId[id];
     if (cat.favorite) result.push(cat);
     return result;
   }, []);
 };
+
+export const selectSingleCat = (state, catId) =>
+  Object.values(state.cats.byId).filter(cat => cat.id === catId);
 
 // const lastWord = /\w+(?=\W*$)/; // No, it's not perfect in all situations.
 
