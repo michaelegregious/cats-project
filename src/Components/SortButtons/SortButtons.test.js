@@ -4,17 +4,20 @@ import { shallow, mount } from 'enzyme';
 import React from 'react';
 
 describe('<SortButtons /> component', () => {
+  let mockPush;
+  let mock;
   let sortButtons;
-  let handleFav;
-  let handleAll;
-  let handleSort;
-  let favorites;
+  let mockFavorites;
+  let mockHistory;
 
   beforeEach(() => {
-    handleFav = jest.fn();
-    handleAll = jest.fn();
-    handleSort = jest.fn();
-    favorites = 5;
+    mockPush = jest.fn();
+    jest.mock(mockHistory, () => {
+      return jest.fn().mockImplementation(() => {
+        return { push: mockPush };
+      });
+    });
+    mockFavorites = 5;
     sortButtons = shallow(<SortButtons />);
   });
 
@@ -26,26 +29,23 @@ describe('<SortButtons /> component', () => {
     expect(sortButtons.find(Button).length).toEqual(3);
   });
 
-  it('calls onClick event on click of each button', () => {
+  it('calls proper url route with click of each button', () => {
+    const mockHistory = { push: jest.fn() };
     const wrapper = mount(
-      <SortButtons
-        handleAllCatsClick={handleAll}
-        handleFavoritesClick={handleFav}
-        handleSortClick={handleSort}
-      />
+      <SortButtons favorites={mockFavorites} history={mockHistory} />
     );
     wrapper.find('[color="green"]').simulate('click');
-    expect(handleAll.mock.calls.length).toBe(1);
+    expect(mockHistory.push.mock.calls[0]).toEqual(['/']);
 
     wrapper.find('[color="blue"]').simulate('click');
-    expect(handleSort.mock.calls.length).toBe(1);
+    expect(mockHistory.push.mock.calls[1]).toEqual(['/sorted']);
 
     wrapper.find('[color="red"]').simulate('click');
-    expect(handleFav.mock.calls.length).toBe(1);
+    expect(mockHistory.push.mock.calls[2]).toEqual(['/favorites']);
   });
 
   it('displays number of favorites based on props', () => {
-    const wrapper = mount(<SortButtons favorites={favorites} />);
+    const wrapper = mount(<SortButtons favorites={mockFavorites} />);
 
     const favButton = wrapper
       .find('[color="red"]')
@@ -53,12 +53,5 @@ describe('<SortButtons /> component', () => {
       .text();
 
     expect(favButton).toEqual('Favorites \u00a0 5');
-    console.log(
-      'INNER text',
-      wrapper
-        .find('[color="red"]')
-        .children()
-        .text()
-    );
   });
 });

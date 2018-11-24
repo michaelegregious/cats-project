@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import store from './store';
 import React from 'react';
 
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 
 ReactDOM.render(
   <Provider store={store}>

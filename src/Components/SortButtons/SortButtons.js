@@ -1,6 +1,6 @@
 import { Button, Divider } from 'semantic-ui-react';
-import React, { Fragment } from 'react';
 import { withRouter } from 'react-router';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
@@ -16,7 +16,7 @@ export const SortButtons = ({ favorites, history }) => (
       </Button>
       <Button
         color="red"
-        onClick={favorites && (() => history.push('/favorites'))}
+        onClick={() => favorites && history.push('/favorites')}
       >
         Favorites &nbsp; {favorites}
       </Button>
@@ -30,7 +30,7 @@ const mapState = state => ({
 });
 
 SortButtons.propTypes = {
-  history: propTypes.object,
+  // history: propTypes.object,
   favorites: propTypes.number
 };
 
