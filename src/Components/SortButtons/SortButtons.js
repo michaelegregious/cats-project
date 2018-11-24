@@ -30,7 +30,7 @@ const mapState = state => ({
 });
 
 SortButtons.propTypes = {
-  // history: propTypes.object,
+  history: propTypes.object,
   favorites: propTypes.number
 };
 

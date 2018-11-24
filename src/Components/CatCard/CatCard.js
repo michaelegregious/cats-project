@@ -48,6 +48,8 @@ CatCard.propTypes = {
   cat: catPropType
 };
 
+CatCard.displayName = 'CatCard';
+
 export default withRouter(
   connect(
     null,

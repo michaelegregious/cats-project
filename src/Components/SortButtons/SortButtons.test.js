@@ -4,19 +4,10 @@ import { shallow, mount } from 'enzyme';
 import React from 'react';
 
 describe('<SortButtons /> component', () => {
-  let mockPush;
-  let mock;
   let sortButtons;
   let mockFavorites;
-  let mockHistory;
 
   beforeEach(() => {
-    mockPush = jest.fn();
-    jest.mock(mockHistory, () => {
-      return jest.fn().mockImplementation(() => {
-        return { push: mockPush };
-      });
-    });
     mockFavorites = 5;
     sortButtons = shallow(<SortButtons />);
   });
@@ -34,6 +25,7 @@ describe('<SortButtons /> component', () => {
     const wrapper = mount(
       <SortButtons favorites={mockFavorites} history={mockHistory} />
     );
+
     wrapper.find('[color="green"]').simulate('click');
     expect(mockHistory.push.mock.calls[0]).toEqual(['/']);
 

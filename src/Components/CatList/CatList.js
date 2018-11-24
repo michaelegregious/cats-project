@@ -11,7 +11,7 @@ import {
   selectSingleCat
 } from '../../store';
 
-const CatList = ({ isFetching, cats, match }) => {
+export const CatList = ({ isFetching, cats, match }) => {
   const { url } = match;
   return isFetching ? (
     'Loading...'
@@ -47,12 +47,9 @@ const mapFavorites = state => ({
   isFetching: state.cats.isFetching
 });
 
-const mapSingle = (state, ownProps) => {
-  console.log('CATID', ownProps.match.params.catId);
-  return {
-    cats: selectSingleCat(state, ownProps.match.params.catId)
-  };
-};
+const mapSingle = (state, ownProps) => ({
+  cats: selectSingleCat(state, ownProps.match.params.catId)
+});
 
 CatList.propTypes = {
   cats: PropTypes.array,
