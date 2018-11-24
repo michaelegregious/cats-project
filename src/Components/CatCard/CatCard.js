@@ -5,23 +5,23 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import React from 'react';
 
-const CatCard = ({ toggleFavorite, cat, match }) => {
+export const CatCard = ({ toggleFavorite, cat, match }) => {
   const url = match.params.catId;
   return (
     <Card>
       <Link to={url === cat.id ? '/' : `/cats/${cat.id}`}>
-        <Image src={cat.imgUrl} />
+        <Image id="catImg" src={cat.imgUrl} />
       </Link>
       <Card.Content>
         <Card.Header>Did you know?</Card.Header>
         <Card.Description>{cat.fact}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <a onClick={() => toggleFavorite(cat.id)}>
+        <a id="catFav" onClick={() => toggleFavorite(cat.id)}>
           <Icon name="heart" size="large" color={cat.favorite ? 'red' : null} />
         </a>
         &nbsp;
-        <Link to={url === cat.id ? '/' : `/cats/${cat.id}`}>
+        <Link id="catEye" to={url === cat.id ? '/' : `/cats/${cat.id}`}>
           <Icon
             name="eye"
             size="large"

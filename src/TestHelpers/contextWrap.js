@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { shape } from 'prop-types';
 import store from '../store';
@@ -7,7 +7,7 @@ import store from '../store';
 
 // Instantiate router context
 const router = {
-  history: new BrowserRouter().history,
+  history: new MemoryRouter().history,
   route: {
     location: {},
     match: { params: { catId: undefined } }

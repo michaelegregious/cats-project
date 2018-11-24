@@ -1,6 +1,6 @@
 import { mountWrap } from '../../TestHelpers/contextWrap';
 import { CatList } from '../CatList/CatList';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 
 describe('<CatList /> Component', () => {
@@ -21,7 +21,7 @@ describe('<CatList /> Component', () => {
     );
   });
 
-  it('handles loading properly', () => {
+  it('dispalys "Loading..." when fetching from API', () => {
     mockFetching = true;
     catList = shallow(
       <CatList isFetching={mockFetching} cats={mockCats} match={mockMatch} />
