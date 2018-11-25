@@ -100,13 +100,12 @@ export const selectAllCats = state =>
     return result;
   }, []);
 
-export const selectAllFavorites = state => {
-  return state.cats.allIds.reduce((result, id) => {
+export const selectAllFavorites = state =>
+  state.cats.allIds.reduce((result, id) => {
     let cat = state.cats.byId[id];
     if (cat.favorite) result.push(cat);
     return result;
   }, []);
-};
 
 export const selectSingleCat = (state, catId) =>
   Object.values(state.cats.byId).filter(cat => cat.id === catId);

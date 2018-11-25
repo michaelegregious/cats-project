@@ -8,7 +8,7 @@ import React from 'react';
 export const CatCard = ({ toggleFavorite, cat, match }) => {
   const url = match.params.catId;
   return (
-    <Card>
+    <Card raised={true}>
       <Link to={url === cat.id ? '/' : `/cats/${cat.id}`}>
         <Image id="catImg" src={cat.imgUrl} />
       </Link>

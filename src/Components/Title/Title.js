@@ -7,9 +7,10 @@ const Title = () => (
 
 const style = {
   h1: {
-    padding: '1.5em 0em',
-    'font-family': 'Bungee Shade, cursive',
-    'font-size': '3em'
+    padding: '1em 0em 0.5em',
+    fontFamily: 'Bungee Shade, cursive',
+    fontSize: '3em',
+    color: '#600560'
   }
 };
 
