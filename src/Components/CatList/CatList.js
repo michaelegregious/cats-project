@@ -47,9 +47,10 @@ const mapFavorites = state => ({
   isFetching: state.cats.isFetching
 });
 
-const mapSingle = (state, ownProps) => ({
-  cats: selectSingleCat(state, ownProps.match.params.catId)
-});
+const mapSingle = (state, ownProps) => {
+  const cat = state.cats.byId[ownProps.match.params.catId];
+  return { cats: cat ? [cat] : [] };
+};
 
 CatList.propTypes = {
   cats: PropTypes.array,

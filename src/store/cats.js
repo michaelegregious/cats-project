@@ -110,12 +110,12 @@ export const selectAllFavorites = state =>
 export const selectSingleCat = (state, catId) =>
   Object.values(state.cats.byId).filter(cat => cat.id === catId);
 
-// Matches the last word (letters only, A thru Z, no numbers or punctuation) in a string.
-const lastWord = /[a-z]+(?=[^a-z]*$)/i;
-
-export const sortCatsByLastWord = state =>
-  Object.values(state.cats.byId).sort((catA, catB) => {
+export const sortCatsByLastWord = state => {
+  // Matches last word, letters only, case-ignored, no punctuation.
+  const lastWord = /[a-z]+(?=[^a-z]*$)/i;
+  return Object.values(state.cats.byId).sort((catA, catB) => {
     catA = catA.fact.match(lastWord)[0];
     catB = catB.fact.match(lastWord)[0];
     return catA.localeCompare(catB);
   });
+};

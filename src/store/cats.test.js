@@ -1,4 +1,5 @@
-import { catsData, catsState, catsArray } from '../testHelpers';
+import { catsData, catsState } from '../testHelpers';
+import reducer, { sortCatsByLastWord } from './cats';
 import {
   selectAllFavorites,
   selectSingleCat,
@@ -6,7 +7,6 @@ import {
   selectAllCats,
   gotCats
 } from './cats';
-import reducer from './cats';
 
 describe('Cats Store functions', () => {
   describe('Cats Reducer', () => {
@@ -85,6 +85,41 @@ describe('Cats Store functions', () => {
     it('selectSingleCat(state, catId) should return single cat', () => {
       const selectedCat = selectSingleCat({ cats: catsState }, 'nb');
       expect(selectedCat).toHaveLength(1);
+      expect(selectedCat).toEqual(expect.arrayContaining([catsState.byId.nb]));
+    });
+
+    it('sortCatsByLastWord(state, catId) should return sorted cats', () => {
+      const lastWord = /[a-z]+(?=[^a-z]*$)/i;
+      const expectedWordOrder = [
+        'another',
+        'away',
+        'breath',
+        'called',
+        'cat',
+        'Cats',
+        'coat',
+        'days',
+        'diarrhea',
+        'high',
+        'hours',
+        'length',
+        'lover',
+        'minute',
+        'of',
+        'own',
+        'process',
+        'steady',
+        'stomachs',
+        'theories',
+        'through',
+        'use',
+        'ways',
+        'years',
+        'years'
+      ];
+      const sortedCats = sortCatsByLastWord({ cats: catsState });
+      const actualWords = sortedCats.map(cat => cat.fact.match(lastWord)[0]);
+      expect(actualWords).toEqual(expectedWordOrder);
     });
   });
 });
