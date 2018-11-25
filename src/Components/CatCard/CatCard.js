@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import React from 'react';
 
-export const CatCard = ({ toggleFavorite, cat, match }) => {
+export const CatCard = ({ toggleFavorite, cat, match, history }) => {
   const url = match.params.catId;
   return (
     <Card raised={true}>
