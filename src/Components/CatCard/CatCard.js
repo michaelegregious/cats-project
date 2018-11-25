@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { toggleFavorite } from '../../store';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import React from 'react';
+import React, { onMouseEnter } from 'react';
 
 export const CatCard = ({ toggleFavorite, cat, match }) => {
   const url = match.params.catId;
