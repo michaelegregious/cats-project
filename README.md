@@ -1,3 +1,7 @@
+# Cat Facts!
+
+How much do you really know about cats?
+
 ## Installing
 
 After cloning the repository, follow these steps:
