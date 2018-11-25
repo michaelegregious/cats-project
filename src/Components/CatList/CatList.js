@@ -18,10 +18,10 @@ export const CatList = ({ isFetching, cats, match }) => {
     `You don't have any favorites yet!`
   ) : (
     <Container>
-      <Grid columns={3}>
+      <Grid>
         {cats.map(cat => (
           <Fragment key={cat.id}>
-            <Grid.Column>
+            <Grid.Column mobile={16} tablet={8} computer={4}>
               <CatCard cat={cat} />
             </Grid.Column>
           </Fragment>
