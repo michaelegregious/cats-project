@@ -48,6 +48,7 @@ const mapFavorites = state => ({
 
 const mapSingle = (state, { match }) => {
   const cat = state.cats.byId[match.params.catId];
+  // Ternary in case of hard refresh while single selected
   return { cats: cat ? [cat] : [] };
 };
 
@@ -58,6 +59,6 @@ CatList.propTypes = {
 };
 
 export const AllCats = withRouter(connect(mapAll)(CatList));
+export const SingleCat = withRouter(connect(mapSingle)(CatList));
 export const SortedCats = withRouter(connect(mapSorted)(CatList));
 export const FavoriteCats = withRouter(connect(mapFavorites)(CatList));
-export const SingleCat = withRouter(connect(mapSingle)(CatList));

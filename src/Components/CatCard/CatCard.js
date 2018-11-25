@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { toggleFavorite } from '../../store';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import React, { onMouseEnter } from 'react';
+import React from 'react';
 
 export const CatCard = ({ toggleFavorite, cat, match }) => {
   const url = match.params.catId;
@@ -17,6 +17,7 @@ export const CatCard = ({ toggleFavorite, cat, match }) => {
         <Card.Description>{cat.fact}</Card.Description>
       </Card.Content>
       <Card.Content extra>
+        {/* eslint-disable-next-line */}
         <a id="catFav" onClick={() => toggleFavorite(cat.id)}>
           <Icon name="heart" size="large" color={cat.favorite ? 'red' : null} />
         </a>
@@ -47,8 +48,6 @@ const catPropType = propTypes.shape({
 CatCard.propTypes = {
   cat: catPropType
 };
-
-CatCard.displayName = 'CatCard';
 
 export default withRouter(
   connect(
