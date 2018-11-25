@@ -6,10 +6,6 @@ const url = {
   img: 'http://thecatapi.com/api/images/get?format=json&results_per_page=25'
 };
 
-// ACTION TYPES
-const GET_CATS = 'GET_CATS';
-const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
-
 // INITIAL STATE
 const defaultCats = {
   isFetching: true,
@@ -24,6 +20,10 @@ const defaultCats = {
   allIds: [],
   favorites: 0
 };
+
+// ACTION TYPES
+const GET_CATS = 'GET_CATS';
+const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 
 // ACTION CREATORS
 export const gotCats = cats => ({
