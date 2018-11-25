@@ -7,8 +7,7 @@ import PropTypes from 'prop-types';
 import {
   selectAllCats,
   sortCatsByLastWord,
-  selectAllFavorites,
-  selectSingleCat
+  selectAllFavorites
 } from '../../store';
 
 export const CatList = ({ isFetching, cats, match }) => {
@@ -47,8 +46,8 @@ const mapFavorites = state => ({
   isFetching: state.cats.isFetching
 });
 
-const mapSingle = (state, ownProps) => {
-  const cat = state.cats.byId[ownProps.match.params.catId];
+const mapSingle = (state, { match }) => {
+  const cat = state.cats.byId[match.params.catId];
   return { cats: cat ? [cat] : [] };
 };
 
