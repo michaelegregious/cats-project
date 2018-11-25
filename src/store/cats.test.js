@@ -2,7 +2,6 @@ import { catsData, catsState } from '../testHelpers';
 import reducer, { sortCatsByLastWord } from './cats';
 import {
   selectAllFavorites,
-  selectSingleCat,
   toggleFavorite,
   selectAllCats,
   gotCats
@@ -80,12 +79,6 @@ describe('Cats Store functions', () => {
       selectedFavs = selectAllFavorites({ cats: stateWithTwoFavs });
 
       expect(selectedFavs).toHaveLength(2);
-    });
-
-    it('selectSingleCat(state, catId) should return single cat', () => {
-      const selectedCat = selectSingleCat({ cats: catsState }, 'nb');
-      expect(selectedCat).toHaveLength(1);
-      expect(selectedCat).toEqual(expect.arrayContaining([catsState.byId.nb]));
     });
 
     it('sortCatsByLastWord(state, catId) should return sorted cats', () => {

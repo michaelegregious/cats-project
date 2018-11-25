@@ -1,13 +1,13 @@
+import { withRouter, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getCats } from '../../store';
 import {
   AllCats,
   FavoriteCats,
   SortedCats,
   SingleCat
 } from '../CatList/CatList';
-import { withRouter, Route, Switch } from 'react-router-dom';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getCats } from '../../store';
 
 class Routes extends Component {
   componentDidMount = () => this.props.getCats();
@@ -25,9 +25,7 @@ class Routes extends Component {
 }
 
 const mapDispatch = dispatch => ({
-  getCats: () => {
-    dispatch(getCats());
-  }
+  getCats: () => dispatch(getCats())
 });
 
 export default withRouter(

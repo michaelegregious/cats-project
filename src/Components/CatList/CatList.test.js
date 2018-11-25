@@ -1,4 +1,4 @@
-import { mountWrap } from '../../TestHelpers/contextWrap';
+import { mountWrap } from '../../TestHelpers';
 import { CatList } from '../CatList/CatList';
 import { shallow } from 'enzyme';
 import React from 'react';

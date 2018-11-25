@@ -107,9 +107,6 @@ export const selectAllFavorites = state =>
     return result;
   }, []);
 
-export const selectSingleCat = (state, catId) =>
-  Object.values(state.cats.byId).filter(cat => cat.id === catId);
-
 export const sortCatsByLastWord = state => {
   // Matches last word, letters only, case-ignored, no punctuation.
   const lastWord = /[a-z]+(?=[^a-z]*$)/i;
