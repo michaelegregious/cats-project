@@ -1,5 +1,5 @@
-import { Button } from 'semantic-ui-react';
 import { SortButtons } from './SortButtons';
+import { Button } from 'semantic-ui-react';
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 

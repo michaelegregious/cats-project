@@ -10,11 +10,10 @@ import {
   selectAllFavorites
 } from '../../store';
 
-export const CatList = ({ isFetching, cats, match }) => {
-  const { url } = match;
-  return isFetching ? (
+export const CatList = ({ isFetching, cats, match }) =>
+  isFetching ? (
     'Loading...'
-  ) : !cats[0] && url === '/favorites' ? (
+  ) : !cats[0] && match.url === '/favorites' ? (
     `You don't have any favorites yet!`
   ) : (
     <Container>
@@ -29,7 +28,6 @@ export const CatList = ({ isFetching, cats, match }) => {
       </Grid>
     </Container>
   );
-};
 
 const mapAll = state => ({
   cats: selectAllCats(state),

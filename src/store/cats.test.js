@@ -4,28 +4,14 @@ import {
   selectAllFavorites,
   toggleFavorite,
   selectAllCats,
+  defaultCats,
   gotCats
 } from './cats';
 
 describe('Cats Store functions', () => {
   describe('Cats Reducer', () => {
-    let defaultState;
-
     it('should return the initial state', () => {
-      defaultState = {
-        isFetching: true,
-        byId: {
-          0: {
-            id: 0,
-            imgUrl: '',
-            fact: '',
-            favorite: false
-          }
-        },
-        allIds: [],
-        favorites: 0
-      };
-      expect(reducer(undefined, {})).toEqual(defaultState);
+      expect(reducer(undefined, {})).toEqual(defaultCats);
     });
 
     it('should handle gotCats() action creator', () => {

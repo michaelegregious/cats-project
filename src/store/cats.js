@@ -7,7 +7,7 @@ const url = {
 };
 
 // INITIAL STATE
-const defaultCats = {
+export const defaultCats = {
   isFetching: true,
   byId: {
     0: {
@@ -108,7 +108,7 @@ export const selectAllFavorites = state =>
   }, []);
 
 export const sortCatsByLastWord = state => {
-  // Matches last word, letters only, case-ignored, no punctuation.
+  // Matches last word, letters only, case-ignored, no punctuation
   const lastWord = /[a-z]+(?=[^a-z]*$)/i;
   return Object.values(state.cats.byId).sort((catA, catB) => {
     catA = catA.fact.match(lastWord)[0];

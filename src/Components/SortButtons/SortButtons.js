@@ -4,7 +4,6 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
-// Named export for testing
 export const SortButtons = ({ favorites, history }) => (
   <Fragment>
     <Button.Group>
