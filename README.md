@@ -22,6 +22,8 @@ To run tests:
 - [React Router](https://reacttraining.com/react-router/)
 - [Redux](https://redux.js.org/)
 - [Semantic-UI](https://react.semantic-ui.com/)
+- [Enzyme](https://airbnb.io/enzyme/docs/api/)
+- [Jest](https://jestjs.io/)
 
 ## Developer
 
