@@ -25,6 +25,13 @@ To run tests:
 - [Enzyme](https://airbnb.io/enzyme/docs/api/)
 - [Jest](https://jestjs.io/)
 
+### APIs
+
+Thanks to the good folks at:
+
+[The Cat API](https://thecatapi.com/) and
+[Cat Facts API](https://catfact.ninja/)
+
 ## Developer
 
 - [Michael Bush](https://michaelegregious.github.io/)
